@@ -1,0 +1,31 @@
+{
+  "name": "mean-angular-4-social-network",
+  "version": "1.0.0",
+  "description": "simple social network site with mean and angular 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechnicalDiary/MEAN-stack-with-Angular-4.git"
+  },
+  "keywords": [
+    "MEAN",
+    "Angular4",
+    "demo",
+    "application",
+    "example"
+  ],
+  "author": "Shahbaz Sharif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechnicalDiary/MEAN-stack-with-Angular-4/issues"
+  },
+  "homepage": "https://github.com/TechnicalDiary/MEAN-stack-with-Angular-4#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6"
+  }
+}
