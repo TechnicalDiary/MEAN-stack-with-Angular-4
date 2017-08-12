@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/TechnicalDiary/MEAN-stack-with-Angular-4#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "mongoose": "^4.11.6"
   }

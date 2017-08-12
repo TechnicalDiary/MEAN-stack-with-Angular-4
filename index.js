@@ -1,8 +1,13 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
+const express = require('express'); // express framework for node
+const app = express();  //initiate express
+const mongoose = require('mongoose');  //node tool for mongodb
+const config = require('./config/database'); //mongoose config
 
-const config = require('./config/database');
+const router = express.Router(); //route package
+const path = require('path'); //Nodejs package for file path 
+const authentication = require('./routes/authentication')(router); //middleware authentication for routes
+
+const bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
@@ -14,7 +19,13 @@ mongoose.connect(config.uri, (err) => {
     }
 });
 
-app.use(express.static(__dirname + '/client/dist'))
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json 
+app.use(bodyParser.json())
+
+app.use(express.static(__dirname + '/client/dist'));
+app.use('/authentication', authentication);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname + client/dist/index.html));
