@@ -25,15 +25,59 @@ module.exports = (router) =>{
                                 if(err.errors.email){
                                     res.json({success:false, message:err.errors.email.message})
                                 } else {
-                                    res.json({success:false, message: 'Error: Could not save user ==>', err});
+                                    if ( err.errors.username) {
+                                        res.json({success:false, message:err.errors.username.message})
+                                    } else {
+                                        if(err.errors.password) {
+                                            res.json({success:false, message: err.errors.password.message})
+                                        } else {
+                                            res.json({success:false, message: 'Error: Could not save user ==>', err});
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            res.json({succes:true, message:'User saved successfully'});
+                            res.json({succes:true, message:'User registred successfully'});
                         }
                     });
                 }
             }
+        }
+    });
+
+    router.get('/checkEmail/:email', (req,res) => {
+        if(!req.params.email){
+            res.json({ success: false, message:'E-mail was not provided'});
+        } else {
+            User.findOne({email:req.param.email}, (err, user) => {
+                if(err){
+                    res.json({success:false, message: err})
+                } else {
+                    if(user){
+                        res.json({success:false, message:'Email-is already taken'});
+                    } else {
+                        res.json({ success:false, message: 'Email is available'})
+                    }
+                }
+            })
+        }
+    });
+
+    router.get('/checkUsername/:username', (req,res) => {
+        if(!req.params.username){
+            res.json({ success: false, message:'Username was not provided'});
+        } else {
+            User.findOne({username:req.param.username}, (err, user) => {
+                if(err){
+                    res.json({success:false, message: err})
+                } else {
+                    if(user){
+                        res.json({success:false, message:'Username already taken'});
+                    } else {
+                        res.json({ success:false, message: 'Username is available'});
+                    }
+                }
+            })
         }
     });
 

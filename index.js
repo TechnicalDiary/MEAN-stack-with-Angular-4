@@ -2,6 +2,7 @@ const express = require('express'); // express framework for node
 const app = express();  //initiate express
 const mongoose = require('mongoose');  //node tool for mongodb
 const config = require('./config/database'); //mongoose config
+const cors = require('cors');
 
 const router = express.Router(); //route package
 const path = require('path'); //Nodejs package for file path 
@@ -19,6 +20,10 @@ mongoose.connect(config.uri, (err) => {
     }
 });
 
+app.use(cors({
+    origin:"http://localhost:4200"
+}));
+
 // parse application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json 
@@ -28,7 +33,7 @@ app.use(express.static(__dirname + '/client/dist'));
 app.use('/authentication', authentication);
 
 app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname + client/dist/index.html));
+    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
     // res.send('Hello world');
 });
 
