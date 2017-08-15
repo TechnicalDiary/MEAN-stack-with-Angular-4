@@ -49,14 +49,14 @@ module.exports = (router) =>{
         if(!req.params.email){
             res.json({ success: false, message:'E-mail was not provided'});
         } else {
-            User.findOne({email:req.param.email}, (err, user) => {
+            User.find({email:req.param.email}, (err, user) => {
                 if(err){
                     res.json({success:false, message: err})
                 } else {
-                    if(user){
+                    if(user.length){
                         res.json({success:false, message:'Email-is already taken'});
                     } else {
-                        res.json({ success:false, message: 'Email is available'})
+                        res.json({ success:true, message: 'Email is available'})
                     }
                 }
             })
@@ -67,14 +67,16 @@ module.exports = (router) =>{
         if(!req.params.username){
             res.json({ success: false, message:'Username was not provided'});
         } else {
-            User.findOne({username:req.param.username}, (err, user) => {
+            // let users = new UserModel;
+            User.find({username:req.param.username},function (err, user) {
+                // UserModel.find({}, (err, user) => {
                 if(err){
                     res.json({success:false, message: err})
                 } else {
-                    if(user){
+                    if(user.length){
                         res.json({success:false, message:'Username already taken'});
                     } else {
-                        res.json({ success:false, message: 'Username is available'});
+                        res.json({ success:true, message: 'Username is available'});
                     }
                 }
             })

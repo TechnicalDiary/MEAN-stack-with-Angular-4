@@ -1,4 +1,5 @@
-<h1 class="page-header"> Register here</h1>
+<div style="max-width:350px;">
+<h1 class="page-header"> Login title</h1>
 
 <div class="row snow-hide-message">
     <div [ngClass]="messageClass">
@@ -8,7 +9,7 @@
 
 <form [formGroup]="loginForm" (submit)="loginForm.submitted=true; loginForm.valid && onRegistratinFromSubmit()">
     <div class="form-group" [ngClass]="{'has-error': !loginForm.controls.username.valid && (loginForm.controls.username.touched || loginForm.submitted )}">
-        <label for="username" >username</label>
+        <label for="username" >Username</label>
         <div>
             <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Username" 
             formControlName="username" />
@@ -19,7 +20,7 @@
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':loginForm.controls.email.errors  && (loginForm.controls.username.invalid || loginForm.submitted )}">
+    <!-- <div class="form-group" [ngClass]="{'has-error':loginForm.controls.email.errors  && (loginForm.controls.username.invalid || loginForm.submitted )}">
         <label for="email" >email</label>
         <div>
             <input type="text" name="email" class="form-control" autocomplete="off" placeholder="example@technicaldiary.com" 
@@ -30,7 +31,7 @@
                 <li *ngIf="loginForm.controls.email.errors?.validateEmail && (loginForm.controls.username.touched || loginForm.submitted)">Invalid Email </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <div class="form-group" [ngClass]="{'has-error':loginForm.controls.password.errors  && (loginForm.controls.username.dirty || loginForm.submitted )}">
         <label for="password" >password</label>
         <div>
@@ -42,7 +43,7 @@
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':loginForm.controls.confirm.errors  && (loginForm.controls.username.dirty || loginForm.submitted )}">
+    <!-- <div class="form-group" [ngClass]="{'has-error':loginForm.controls.confirm.errors  && (loginForm.controls.username.dirty || loginForm.submitted )}">
         <label for="confirm" >confirm password</label>
         <div>
             <input type="text" name="confirm" class="form-control" autocomplete="off" placeholder="Confirm password" 
@@ -52,6 +53,7 @@
                 <li *ngIf="loginForm.errors?.matchningPasswords  && (loginForm.controls.confirm.dirty || loginForm.submitted)">Unmatched password</li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <input type="submit" class="btn btn-primary" value="submit" />
 </form>
+</div>

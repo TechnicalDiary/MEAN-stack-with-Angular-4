@@ -1,3 +1,4 @@
+<div style="max-width:400px;">
 <h1 class="page-header"> Register here</h1>
 
 <div class="row snow-hide-message">
@@ -11,22 +12,22 @@
         <label for="username" >username</label>
         <div>
             <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Username" 
-            formControlName="username" />
+            formControlName="username" (blur)="checkUsername()" />
             <ul class="help-block">
-                <li *ngIf="registrationForm.controls.username.errors?.required  && (registrationForm.controls.username.invalid || registrationForm.submitted)">This field is required</li>
+                <li *ngIf="registrationForm.controls.username.errors?.required  && (registrationForm.controls.username.touched || registrationForm.submitted)">This field is required</li>
                 <li *ngIf="(registrationForm.controls.username.errors?.minlength  || registrationForm.controls.username.errors?.maxlength)
                  && (registrationForm.controls.username.dirty || registrationForm.submitted)">Field length nust be between 3 to 15 </li>
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.email.errors  && (registrationForm.controls.username.invalid || registrationForm.submitted )}">
+    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.email.errors  && (registrationForm.controls.email.touched || registrationForm.submitted )}">
         <label for="email" >email</label>
         <div>
             <input type="text" name="email" class="form-control" autocomplete="off" placeholder="example@technicaldiary.com" 
-            formControlName="email"/>
+            formControlName="email" (blur)="checkEmail()"/>
             <ul class="help-block">
-                <li *ngIf="registrationForm.controls.email.errors?.required  && (registrationForm.controls.username.invalid || registrationForm.submitted)">This field is required</li>
-                <li *ngIf="(registrationForm.controls.email.errors?.minlength  || registrationForm.controls.email.errors?.maxlength ) && (registrationForm.controls.username.dirty || registrationForm.submitted)">Field length nust be between 5 to 30 </li>
+                <li *ngIf="registrationForm.controls.email.errors?.required  && (registrationForm.controls.email.touched || registrationForm.submitted)">This field is required</li>
+                <!-- <li *ngIf="(registrationForm.controls.email.errors?.minlength  || registrationForm.controls.email.errors?.maxlength ) && (registrationForm.controls.username.dirty || registrationForm.submitted)">Field length nust be between 5 to 30 </li> -->
                 <li *ngIf="registrationForm.controls.email.errors?.validateEmail && (registrationForm.controls.username.touched || registrationForm.submitted)">Invalid Email </li>
             </ul>
         </div>
@@ -55,6 +56,7 @@
     </div>
     <input type="submit" class="btn btn-primary" value="submit" />
 </form>
+</div>
 
 {{registrationForm.errors?.matchningPasswords}}
  <!-- {{registrationForm.valid}}

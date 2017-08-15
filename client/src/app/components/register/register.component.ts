@@ -85,19 +85,23 @@ export class RegisterComponent implements OnInit{
     checkEmail() {
         this.authService.checkEmail(this.registrationForm.get('email').value).subscribe(data =>{
             if(!data.success){
-
+                this.messageClass = "alert alert-success";
+                this.message = data.message;
             } else {
-
+                this.messageClass = "alert alert-danger";
+                this.message = data.message;
             }
         })
     }
 
     checkUsername() {
-        this.authService.checkEmail(this.registrationForm.get('username').value).subscribe(data =>{
+        this.authService.checkUsername(this.registrationForm.get('username').value).subscribe(data =>{
             if(!data.success){
-
+                this.messageClass = "alert alert-success";
+                this.message = data.message;
             } else {
-                
+                this.messageClass = "alert alert-danger";
+                this.message = data.message;
             }
         })
     }

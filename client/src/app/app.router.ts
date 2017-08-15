@@ -2,11 +2,26 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const appRoutes: Routes = [
     {
+        path:'login',
+        component: LoginComponent
+    },
+    {
         path:'home',
         component: HomeComponent
+    },
+    {
+        path:'profile',
+        component: ProfileComponent
+    },
+    {
+        path:'blog',
+        component: BlogComponent
     },
     {
         path:'dashboard',
