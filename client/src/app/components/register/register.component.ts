@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit{
 
     checkEmail() {
         this.authService.checkEmail(this.registrationForm.get('email').value).subscribe(data =>{
-            if(!data.success){
+            if(data.success){
                 this.messageClass = "alert alert-success";
                 this.message = data.message;
             } else {
@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit{
 
     checkUsername() {
         this.authService.checkUsername(this.registrationForm.get('username').value).subscribe(data =>{
-            if(!data.success){
+            if(data.success){
                 this.messageClass = "alert alert-success";
                 this.message = data.message;
             } else {

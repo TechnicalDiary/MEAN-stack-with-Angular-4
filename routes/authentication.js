@@ -46,7 +46,17 @@ module.exports = (router) =>{
     });
 
 
-
+    router.post('/login', (req, res) => {
+        if(!req.body.username){
+            res.json({success:false, message: 'you must provide username to login'});
+        } else {
+            if(!req.body.password){
+                res.json({success:flase, message:'You must provide password to login'});
+            } else {
+                let loginCredential
+            }
+        }
+    })
 
     router.get('/checkEmail/:email', (req,res) => {
         if(!req.params.email){
@@ -57,7 +67,7 @@ module.exports = (router) =>{
                     res.json({success:false, message: err})
                 } else {
                     if(user){
-                        res.json({success:false, message:'Email-is already taken'});
+                        res.json({success:false, message:'Error: Email-is already taken'});
                     } else {
                         res.json({ success:true, message: 'Email is available'})
                     }
@@ -70,14 +80,12 @@ module.exports = (router) =>{
         if(!req.params.username){
             res.json({ success: false, message:'Username was not provided'});
         } else {
-            // let users = new UserModel;
-            User.find({'username' :req.param.username},function (err, user) {
-                // UserModel.find({}, (err, user) => {
+            User.findOne({"username":req.params.username}, 'email username', (err, user) => {
                 if(err){
                     res.json({success:false, message: err})
                 } else {
-                    if(user.length){
-                        res.json({success:false, message:'Username already taken'});
+                    if(user){
+                        res.json({success:false, message:'Error: Username already taken'});
                     } else {
                         res.json({ success:true, message: 'Username is available'});
                     }

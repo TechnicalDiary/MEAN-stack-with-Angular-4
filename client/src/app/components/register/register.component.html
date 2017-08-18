@@ -8,7 +8,7 @@
 </div>
 
 <form [formGroup]="registrationForm" (submit)="registrationForm.submitted=true; registrationForm.valid && onRegistratinFromSubmit()">
-    <div class="form-group" [ngClass]="{'has-error': !registrationForm.controls.username.valid && (registrationForm.controls.username.touched || registrationForm.submitted )}">
+    <div class="form-group" [ngClass]="{'has-error': registrationForm.controls.username.invalid && (registrationForm.controls.username.touched || registrationForm.submitted )}">
         <label for="username" >username</label>
         <div>
             <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Username" 
@@ -16,11 +16,11 @@
             <ul class="help-block">
                 <li *ngIf="registrationForm.controls.username.errors?.required  && (registrationForm.controls.username.touched || registrationForm.submitted)">This field is required</li>
                 <li *ngIf="(registrationForm.controls.username.errors?.minlength  || registrationForm.controls.username.errors?.maxlength)
-                 && (registrationForm.controls.username.dirty || registrationForm.submitted)">Field length nust be between 3 to 15 </li>
+                 && (registrationForm.controls.username.touched || registrationForm.submitted)">Field length nust be between 3 to 15 </li>
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.email.errors  && (registrationForm.controls.email.touched || registrationForm.submitted )}">
+    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.email.invalid  && (registrationForm.controls.email.touched || registrationForm.submitted )}">
         <label for="email" >email</label>
         <div>
             <input type="text" name="email" class="form-control" autocomplete="off" placeholder="example@technicaldiary.com" 
@@ -28,29 +28,30 @@
             <ul class="help-block">
                 <li *ngIf="registrationForm.controls.email.errors?.required  && (registrationForm.controls.email.touched || registrationForm.submitted)">This field is required</li>
                 <!-- <li *ngIf="(registrationForm.controls.email.errors?.minlength  || registrationForm.controls.email.errors?.maxlength ) && (registrationForm.controls.username.dirty || registrationForm.submitted)">Field length nust be between 5 to 30 </li> -->
-                <li *ngIf="registrationForm.controls.email.errors?.validateEmail && (registrationForm.controls.username.touched || registrationForm.submitted)">Invalid Email </li>
+                <li *ngIf="registrationForm.controls.email.errors?.validateEmail && (registrationForm.controls.email.touched || registrationForm.submitted)">Invalid Email </li>
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.password.errors  && (registrationForm.controls.username.dirty || registrationForm.submitted )}">
+    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.password.errors  && (registrationForm.controls.password.touched || registrationForm.submitted )}">
         <label for="password" >password</label>
         <div>
             <input type="text" name="password" class="form-control" autocomplete="off" placeholder="Password" 
             formControlName="password"/>
             <ul class="help-block">
-                <li *ngIf="registrationForm.controls.password.errors?.required  && (registrationForm.controls.username.dirty || registrationForm.submitted)">This field is required</li>
+                <li *ngIf="registrationForm.controls.password.errors?.required  && (registrationForm.controls.password.touched || registrationForm.submitted)">This field is required</li>
                 <li *ngIf="registrationForm.controls.password.errors?.minlength  || registrationForm.controls.password.errors?.maxlength ">Field length nust be between 8 to 30 </li>
+                <li *ngIf="registrationForm.controls.password.errors?.validatePassword && (registrationForm.controls.password.touched || registrationForm.submitted)">Password must have one lower case, uppercase, special charecter  </li>
             </ul>
         </div>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.confirm.errors  && (registrationForm.controls.username.dirty || registrationForm.submitted )}">
+    <div class="form-group" [ngClass]="{'has-error':registrationForm.controls.confirm.errors  && (registrationForm.controls.confirm.touched || registrationForm.submitted )}">
         <label for="confirm" >confirm password</label>
         <div>
             <input type="text" name="confirm" class="form-control" autocomplete="off" placeholder="Confirm password" 
             formControlName="confirm"/>
             <ul class="help-block">
-                <li *ngIf="registrationForm.controls.confirm.errors?.required  && (registrationForm.controls.confirm.dirty || registrationForm.submitted)">This field is required</li>
-                <li *ngIf="registrationForm.errors?.matchningPasswords  && (registrationForm.controls.confirm.dirty || registrationForm.submitted)">Unmatched password</li>
+                <li *ngIf="registrationForm.controls.confirm.errors?.required  && (registrationForm.controls.confirm.touched || registrationForm.submitted)">This field is required</li>
+                <li *ngIf="registrationForm.errors?.matchningPasswords  && (registrationForm.controls.confirm.touched || registrationForm.submitted)">Unmatched password</li>
             </ul>
         </div>
     </div>
