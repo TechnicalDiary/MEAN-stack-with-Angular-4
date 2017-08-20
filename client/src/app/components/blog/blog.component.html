@@ -1,1 +1,76 @@
-<h1 class="page-header"> Welcome to Blog Page</h1>
+<h1 class="page-header">Blog Feed</h1>
+
+<div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+        {{message}}
+    </div>
+</div>
+
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+<button type="button" name="button" class="btn btn-info" (click)="reloadBlogs()">
+    <span class="glyphicon glyphicon-repeat"> Reload</span>
+</button>
+<br>
+<br>
+
+<div *ngIf="!newPost">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Post Title</h3>
+        </div>
+        <div class="panel-body">
+             This is dummy post content. This is dummy post content. This is dummy post content.
+              This is dummy post content. This is dummy post content. This is dummy post content. 
+              This is dummy post content. This is dummy post content. This is dummy post content. 
+              This is dummy post content. This is dummy post content. 
+             This is dummy post content. This is dummy post content. This is dummy post content. 
+        </div>
+        <div class="panel-footer">
+            <strong>Posted by: </strong>Shahbaz <br />
+            <strong>Date: </strong>Jun20, 2017 <br />
+            <div>                
+                <strong>Likes:</strong>50 <br />
+                <strong>Dislikes:</strong>10 <br />
+            </div>
+            <a href=""><button type="button" name="button" class="btn btn-xs btn-primary">Edit</button></a>
+            <a href=""><button type="button" name="button" class="btn btn-xs btn-danger">Delete</button></a>
+            <div class="dropdown">
+                <button type="button" name="button" class="btn btn-xs btn-success">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Likes: 50
+                </button>
+                <div class="dropdown-content">
+                    <a href="" >Erabc Ali</a>
+                    <a href="" >Dedef Fgt</a>
+                    <a href="" >Fhi</a>
+                    <a href="" >Kamal</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button type="button" name="button" class="btn btn-xs btn-info">
+                    <span class="glyphicon glyphicon-thumbs-down"></span> Dislikes: 50
+                </button>
+                <div class="dropdown-content">
+                    <a href="" >Erabc Ali</a>
+                    <a href="" >Dedef Fgt</a>
+                    <a href="" >Fhi</a>
+                    <a href="" >Kamal</a>
+                </div>
+            </div>
+        </div>
+        <!-- footer end -->
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button" name="button" class="btn btn-sm btn-success" (click)="draftComment()">
+                    Post Comment
+                </button>
+                <!-- <form>
+                    <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+                    <button type="button" name="button" class="btn btn-sm btn-info"> Submit Post</button>
+                    <button type="button" name="button" class="btn btn-sm btn-default"> Cancel</button>
+                </form> -->
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const config = require('../config/database');
 
 module.exports = (router) =>{
     router.post('/register', (req, res) => {
@@ -45,19 +47,6 @@ module.exports = (router) =>{
         }
     });
 
-
-    router.post('/login', (req, res) => {
-        if(!req.body.username){
-            res.json({success:false, message: 'you must provide username to login'});
-        } else {
-            if(!req.body.password){
-                res.json({success:flase, message:'You must provide password to login'});
-            } else {
-                let loginCredential
-            }
-        }
-    })
-
     router.get('/checkEmail/:email', (req,res) => {
         if(!req.params.email){
             res.json({ success: false, message:'E-mail was not provided'});
@@ -93,6 +82,65 @@ module.exports = (router) =>{
             })
         }
     });
+    
+    
+    router.post('/login', (req, res) => {
+        if(!req.body.username){
+            res.json({success:false, message: 'you must provide username to login'});
+        } else {
+            if(!req.body.password){
+                res.json({success:false, message:'You must provide password to login'});
+            } else {
+                User.findOne({"username":req.body.username.toLowerCase()}, '_id email username password', (err, user) => {
+                    if(err){
+                        res.json({success:false, message: err})
+                    } else {
+                        if(!user){
+                            res.json({success:false, message:'User not found'});
+                        } else {
+                            const validPassword = user.comparePassword(req.body.password);
+                            if(!validPassword) {
+                                res.json({success:false, message:'Invalid Password'});
+                            } else {
+                                const token = jwt.sign({userId: user._id}, config.secret, {expiresIn:'24h'});
+                                res.json({success:true, message:'successfully logedin', token:token, user:{username:user.username} });
+                            }
+                        }
+                    }
+                })
+            }
+        }
+    });
+
+    router.use((req,res,next) => {
+        const token = req.headers['authorization']; 
+        if(!token) {
+            res.json({success: false, message: 'No token provided'});
+        } else {
+            jwt.verify(token,config.secret, (err, decoded) => {
+                if (err) {
+                    res.json({success:false, message:'Token invalid' + err});
+                } else {
+                    req.decode = decoded;
+                    next();
+                }
+            })
+        }
+    })
+
+    router.get('/profile', (req, res) => {
+        User.findOne({_id: req.decode.userId}).select('username email').exec((err, user) =>{
+            if(err) {
+                res.json({success:false, message:err});
+            } else {
+                if(!user){
+                    res.json({success:false, message:'User not found'});
+                } else {
+                    res.json({success: true, user:user});
+                }
+            }
+        })
+    })
 
     return router;
 }

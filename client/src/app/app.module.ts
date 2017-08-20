@@ -12,7 +12,10 @@ import { LoginComponent } from './components/login/login.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AppComponent } from './app.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth.service'
+import { NavbarService } from './services/navbar.service';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard} from './guards/notAuth.guard';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule, AppRouting, ReactiveFormsModule, HttpModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard,NotAuthGuard, NavbarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

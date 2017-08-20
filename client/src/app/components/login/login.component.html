@@ -7,16 +7,16 @@
     </div>
 </div>
 
-<form [formGroup]="loginForm" (submit)="loginForm.submitted=true; loginForm.valid && onRegistratinFromSubmit()">
+<form [formGroup]="loginForm" (submit)="loginForm.submitted=true; loginForm.valid && onLoginSubmit()">
     <div class="form-group" [ngClass]="{'has-error': !loginForm.controls.username.valid && (loginForm.controls.username.touched || loginForm.submitted )}">
         <label for="username" >Username</label>
         <div>
             <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Username" 
             formControlName="username" />
             <ul class="help-block">
-                <li *ngIf="loginForm.controls.username.errors?.required  && (loginForm.controls.username.invalid || loginForm.submitted)">This field is required</li>
+                <li *ngIf="loginForm.controls.username.errors?.required  && (loginForm.controls.username.touched || loginForm.submitted)">This field is required</li>
                 <li *ngIf="(loginForm.controls.username.errors?.minlength  || loginForm.controls.username.errors?.maxlength)
-                 && (loginForm.controls.username.dirty || loginForm.submitted)">Field length nust be between 3 to 15 </li>
+                 && (loginForm.controls.username.touched || loginForm.submitted)">Field length nust be between 3 to 15 </li>
             </ul>
         </div>
     </div>
@@ -39,7 +39,8 @@
             formControlName="password"/>
             <ul class="help-block">
                 <li *ngIf="loginForm.controls.password.errors?.required  && (loginForm.controls.username.dirty || loginForm.submitted)">This field is required</li>
-                <li *ngIf="loginForm.controls.password.errors?.minlength  || loginForm.controls.password.errors?.maxlength ">Field length nust be between 8 to 30 </li>
+                <li *ngIf="loginForm.controls.password.errors?.minlength  || loginForm.controls.password.errors?.maxlength && 
+                (loginForm.controls.password.touched || loginForm.submitted)">Field length nust be between 8 to 30 </li>
             </ul>
         </div>
     </div>

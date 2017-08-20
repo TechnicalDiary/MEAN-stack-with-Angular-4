@@ -5,11 +5,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
+
 
 const appRoutes: Routes = [
     {
         path:'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate:[NotAuthGuard]
     },
     {
         path:'home',
@@ -17,19 +21,23 @@ const appRoutes: Routes = [
     },
     {
         path:'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate:[AuthGuard]
     },
     {
         path:'blog',
-        component: BlogComponent
+        component: BlogComponent,
+        canActivate:[AuthGuard]
     },
     {
         path:'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate:[AuthGuard]
     },
     {
         path:'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate:[NotAuthGuard]
     }    
 ]
 
