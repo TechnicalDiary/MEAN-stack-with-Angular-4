@@ -121,7 +121,7 @@ module.exports = (router) =>{
                 if (err) {
                     res.json({success:false, message:'Token invalid' + err});
                 } else {
-                    req.decode = decoded;
+                    req.decoded = decoded;
                     next();
                 }
             })
@@ -129,7 +129,7 @@ module.exports = (router) =>{
     })
 
     router.get('/profile', (req, res) => {
-        User.findOne({_id: req.decode.userId}).select('username email').exec((err, user) =>{
+        User.findOne({_id: req.decoded.userId}).select('username email').exec((err, user) =>{
             if(err) {
                 res.json({success:false, message:err});
             } else {

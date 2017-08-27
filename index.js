@@ -7,6 +7,7 @@ const cors = require('cors');
 const router = express.Router(); //route package
 const path = require('path'); //Nodejs package for file path 
 const authentication = require('./routes/authentication')(router); //middleware authentication for routes
+const blogs = require('./routes/blogs')(router);
 
 const bodyParser = require('body-parser');
 
@@ -30,8 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist'));
+app.use('/blogs', blogs);
 app.use('/authentication', authentication);
-
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
     // res.send('Hello world');

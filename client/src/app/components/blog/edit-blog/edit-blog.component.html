@@ -1,0 +1,31 @@
+<h1 class="page-header"> Edit Blog</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+    <div [ngClass]="messageClass">   
+        {{message}}
+    </div>
+    <button type="button" class="btn btn-link btn-sm" (click)="goBack()">Back to Blogs</button>
+</div>
+
+<form [formGroup]="form" name="blogEditForm" (click)="onUpdateBlogSubmit()"  *ngIf="!loading">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Blog title" class="form-control" formControlName="title"
+        [(ngModel)]="blog.title" />
+        <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required"> This field is required</li>
+            <li *ngIf="form.controls.title.dirty && (form.controls.title.errors?.minlength || form.controls.title.errors?.maxlength)"> Max length: 50, Min length: 5</li>  
+        </ul> 
+    </div>
+    <div class="form-group">
+        <label for="body">Body</label>
+        <textarea type="text" name="body" placeholder="Blog body" class="form-control" formControlName="body"
+        [(ngModel)]="blog.body"></textarea>
+        <ul class="help-block">
+            <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required"> This field is required</li>
+            <li *ngIf="form.controls.body.dirty && (form.controls.body.errors?.minlength || form.controls.body.errors?.maxlength)"> Max length: 500, Min length: 5</li>  
+        </ul>    
+    </div>
+    <button type="submit" class="btn btn-success btn-sm">Save </button>
+    <button type="button" class="btn btn-default btn-sm" (click)="goBack()">cancel</button>
+</form>
